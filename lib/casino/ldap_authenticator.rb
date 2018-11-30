@@ -25,6 +25,7 @@ class CASino::LDAPAuthenticator
     Net::LDAP.new.tap do |ldap|
       ldap.host = @options[:host]
       ldap.port = @options[:port]
+      ldap.base = @options[:base]
       if @options[:encryption]
         ldap.encryption(@options[:encryption].to_sym)
       end
@@ -43,9 +44,6 @@ class CASino::LDAPAuthenticator
     ldap = connect_to_ldap
     p "user_filter(username)"
     p user_filter(username)
-    p "@options[:base]"
-    p @options[:base]
-    ldap[:base] = @options
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
     p "user"
     p user
