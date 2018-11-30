@@ -42,11 +42,13 @@ class CASino::LDAPAuthenticator
     return false unless password && !password.empty?
 
     ldap = connect_to_ldap
-    p "ldap"
-    p ldap
+    p "user_filter(username)"
+    p user_filter(username)
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
     p "user"
     p user
+    p "ldap"
+    p ldap
     if user
       load_user_data_with_connection(username, ldap)
     else
