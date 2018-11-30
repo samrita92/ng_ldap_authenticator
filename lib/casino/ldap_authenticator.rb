@@ -78,7 +78,8 @@ class CASino::LDAPAuthenticator
   end
 
   def user_filter(username)
-    filter = Net::LDAP::Filter.eq(username_attribute, username)
+    final_username_for_search = username + " " + username
+    filter = Net::LDAP::Filter.eq(username_attribute, final_username_for_search )
     unless @options[:filter].nil?
       filter &= Net::LDAP::Filter.construct(@options[:filter])
     end
