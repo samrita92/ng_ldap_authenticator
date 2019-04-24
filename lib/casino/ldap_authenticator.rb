@@ -83,7 +83,8 @@ class CASino::LDAPAuthenticator
         value = user_plain[index_ldap]
         if value
           if index_ldap == "objectguid"
-            value = UUIDTools::UUID.parse_raw(value.to_s).to_s
+            uuid = UUIDTools::UUID.parse_raw(value.to_s)
+            value = generate_uuid_format(uuid.to_s)
             result[index_result] = "#{value}"
           else
             result[index_result] = "#{value.first}"
@@ -95,4 +96,18 @@ class CASino::LDAPAuthenticator
       nil
     end
   end
+end
+
+
+private
+
+def generate_uuid_format(uuid)
+  temp_arr = uuid.split("-").join("").scan(/.{2}/)
+  order = [4, 3, 2, 1, 6, 5, 8, 7, 9, 10, 11, 12, 13, 14, 15, 16]
+  final_arr=[]
+  order.each_with_index do | o, index|
+    final_arr[index] = temp_arr[o-1]
+  end
+  final_uuid = final_arr.join("").upcase
+  final_uuid.insert(8, '-').insert(13, '-').insert(18, '-').insert(23, '-')
 end
