@@ -87,10 +87,10 @@ class CASino::LDAPAuthenticator
             # p value.class
             # p "111"
             # p value[0].to_uri
-            # p "222"
-            p value[0].hexdigest
+             p "222"
+            p UUIDTools::UUID.hexdigest(value.to_s)
             p "333"
-            p value[0].inspect
+            p UUIDTools::UUID.inspect(value.to_s)
             p "0000"
             uuid = UUIDTools::UUID.parse_raw(value.to_s)
             p "uuid"
