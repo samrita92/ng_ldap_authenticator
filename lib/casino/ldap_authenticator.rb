@@ -79,20 +79,19 @@ class CASino::LDAPAuthenticator
   def extra_attributes(user_plain)
     if @options[:extra_attributes]
       result = {}
-      p "@options[:extra_attributes]"
       @options[:extra_attributes].each do |index_result, index_ldap|
         value = user_plain[index_ldap]
         if value
           if index_ldap == "objectguid"
+            uuid = UUIDTools::UUID.parse_raw(value.to_s)
+            p "uuid"
+            p uuid
             u1 = UUIDTools::UUID.parse(value.to_s)
             p "u1"
             p u1
             u2 = UUIDTools::UUID.parse_hexdigest(value.to_s)
             p "u2"
             p u2
-            uuid = UUIDTools::UUID.parse_raw(value.to_s)
-            p "uuid"
-            p uuid
             p uuid.to_s
             value = generate_uuid_format(uuid.to_s)
             result[index_result] = "#{value}"
