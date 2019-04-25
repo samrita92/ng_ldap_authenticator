@@ -104,8 +104,7 @@ end
 private
 
 def decode_uuid(uuid_value)
-  uuid = uuid_value[0].unpack('H*')
-  temp_uuid = uuid[0].unpack('H*')
+  temp_uuid = uuid_value[0].unpack('H*')
   temp_uuid.insert(8, '-').insert(13, '-').insert(18, '-').insert(23, '-')
 end
 
