@@ -83,11 +83,11 @@ class CASino::LDAPAuthenticator
         value = user_plain[index_ldap]
         if value
           if index_ldap == "objectguid"
-            p "----"
-            p value.class
-            p "111"
-            p value[0].to_uri
-            p "222"
+            # p "----"
+            # p value.class
+            # p "111"
+            # p value[0].to_uri
+            # p "222"
             p value[0].hexdigest
             p "333"
             p value[0].inspect
