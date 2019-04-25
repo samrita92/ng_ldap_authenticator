@@ -85,8 +85,6 @@ class CASino::LDAPAuthenticator
           if index_ldap == "objectguid"
             temp_uuid = decode_uuid(value)
             value = generate_uuid_format(temp_uuid)
-            p "value"
-            p value
             result[index_result] = "#{value}"
           else
             result[index_result] = "#{value.first}"
