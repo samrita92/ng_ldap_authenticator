@@ -84,6 +84,9 @@ class CASino::LDAPAuthenticator
         if value
           if index_ldap == "objectguid"
             p "value"
+            
+            binding.pry
+            
             p value
             # p "----"
             # p value.class
