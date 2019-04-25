@@ -83,26 +83,10 @@ class CASino::LDAPAuthenticator
         value = user_plain[index_ldap]
         if value
           if index_ldap == "objectguid"
+            temp_uuid = decode_uuid(value)
+            value = generate_uuid_format(temp_uuid)
             p "value"
-            
-            binding.pry
-            
             p value
-            # p "----"
-            # p value.class
-            # p UUIDTools::UUID.inspect(value.to_s)
-            # p "0000"
-            uuid = UUIDTools::UUID.parse_raw(value.to_s)
-            p "uuid"
-            p uuid
-            # u1 = UUIDTools::UUID.parse(value.to_s)
-            p "u1"
-            # p u1
-            u2 = UUIDTools::UUID.parse_hexdigest(value.to_s)
-            p "u2"
-            p u2
-            p uuid.to_s
-            value = generate_uuid_format(uuid.to_s)
             result[index_result] = "#{value}"
           else
             result[index_result] = "#{value.first}"
@@ -119,23 +103,19 @@ end
 
 private
 
+def decode_uuid(uuid_value)
+  uuid = uuid_value[0].unpack('H*')
+  temp_uuid = uuid[0].unpack('H*')
+  temp_uuid.insert(8, '-').insert(13, '-').insert(18, '-').insert(23, '-')
+end
+
 def generate_uuid_format(uuid)
-  p "uuid"
-  p uuid
   temp_arr = uuid.split("-").join("").scan(/.{2}/)
-  p "temp_arr"
-  p temp_arr
   order = [4, 3, 2, 1, 6, 5, 8, 7, 9, 10, 11, 12, 13, 14, 15, 16]
   final_arr=[]
   order.each_with_index do | o, index|
     final_arr[index] = temp_arr[o-1]
   end
-  p "final_arr"
-  p final_arr
   final_uuid = final_arr.join("").upcase
-  p "final_uuid"
-  p final_uuid
   final_uuid.insert(8, '-').insert(13, '-').insert(18, '-').insert(23, '-')
-  p "final_uuid"
-  p final_uuid
 end
