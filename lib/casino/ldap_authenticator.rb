@@ -85,9 +85,6 @@ class CASino::LDAPAuthenticator
           if index_ldap == "objectguid"
             # p "----"
             # p value.class
-            p "111"
-            p UUIDTools::UUID.to_uri(value.to_s)
-            p "333"
             p UUIDTools::UUID.inspect(value.to_s)
             p "0000"
             uuid = UUIDTools::UUID.parse_raw(value.to_s)
