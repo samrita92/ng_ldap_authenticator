@@ -102,12 +102,22 @@ end
 private
 
 def generate_uuid_format(uuid)
+  p "uuid"
+  p uuid
   temp_arr = uuid.split("-").join("").scan(/.{2}/)
+  p "temp_arr"
+  p temp_arr
   order = [4, 3, 2, 1, 6, 5, 8, 7, 9, 10, 11, 12, 13, 14, 15, 16]
   final_arr=[]
   order.each_with_index do | o, index|
     final_arr[index] = temp_arr[o-1]
   end
+  p "final_arr"
+  p final_arr
   final_uuid = final_arr.join("").upcase
+  p "final_uuid"
+  p final_uuid
   final_uuid.insert(8, '-').insert(13, '-').insert(18, '-').insert(23, '-')
+  p "final_uuid"
+  p final_uuid
 end
