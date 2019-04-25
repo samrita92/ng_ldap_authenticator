@@ -91,6 +91,9 @@ class CASino::LDAPAuthenticator
         if value
           if index_ldap == "objectguid"
             uuid = UUIDTools::UUID.parse_raw(value.to_s)
+            p "uuid"
+            p uuid
+            p uuid.to_s
             value = generate_uuid_format(uuid.to_s)
             result[index_result] = "#{value}"
           else
