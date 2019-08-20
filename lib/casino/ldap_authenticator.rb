@@ -122,7 +122,8 @@ end
 def get_bad_pwd_count(user)
   if user.kind_of?(Array)
     p "ll"
-    p user[0]
+    p user[0][:badpwdcount]
+    
   end
   # p user[:badpwdcount]
 
