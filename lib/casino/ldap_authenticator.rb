@@ -56,7 +56,7 @@ class CASino::LDAPAuthenticator
     if user.is_a?(Array)
       user = user.first
     end
-    user_data(user)
+    p user_data(user)
   end
 
   def user_data(user)
