@@ -20,6 +20,11 @@ class CASino::LDAPAuthenticator
     load_user_data_with_connection(username, connect_to_ldap)
   end
 
+  def can_login?(username,password)
+    ldap = connect_to_ldap
+    user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
+    get_bad_pwd_count(user)
+  end
   private
   def connect_to_ldap
     Net::LDAP.new.tap do |ldap|
@@ -36,15 +41,10 @@ class CASino::LDAPAuthenticator
   end
 
   def authenticate(username, password)
-    p "called"
     # Don't allow "Unauthenticated bind" (http://www.openldap.org/doc/admin24/security.html#Authentication%20Methods)
     return false unless password && !password.empty?
-    p "ddd"
     ldap = connect_to_ldap
-    p "l"
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
-    p "kkkk"
-    get_bad_pwd_count(user)
     if user
       load_user_data_with_connection(username, ldap)
     else
@@ -130,7 +130,9 @@ def get_bad_pwd_count(user)
     p "count"
     p count
     if count >= 1
-      p "Account locked"
+      [false, "Account locked"]
+    else
+      [true,"User Can Login"]
     end
   end
 end
