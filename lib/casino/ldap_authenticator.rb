@@ -123,8 +123,9 @@ def get_bad_pwd_count(user)
   p "user-->"
   # p user[0]
   p user
-  p user.class
+  p user.class  == "Array"
   if user.class == "Array"
+    p "ll"
     p user[0]
   end
   # p user[:badpwdcount]
