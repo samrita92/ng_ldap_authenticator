@@ -23,6 +23,8 @@ class CASino::LDAPAuthenticator
   def can_login?(username,password)
     ldap = connect_to_ldap
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
+    p "kkkk"
+    p user
     locked?(user)
   end
   private
