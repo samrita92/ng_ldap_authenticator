@@ -40,6 +40,8 @@ class CASino::LDAPAuthenticator
     return false unless password && !password.empty?
     ldap = connect_to_ldap
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
+    p "kkkk"
+    get_bad_pwd_count(user)
     if user
       load_user_data_with_connection(username, ldap)
     else
@@ -50,8 +52,6 @@ class CASino::LDAPAuthenticator
   def load_user_data_with_connection(username, ldap)
     include_attributes = @options[:extra_attributes].values + [username_attribute]
     user = ldap.search(:base => @options[:base], :filter => user_filter(username), :attributes => include_attributes)
-    p "kkkk"
-    get_bad_pwd_count(user)
     return nil if user.nil?
     if user.is_a?(Array)
       user = user.first
@@ -79,14 +79,9 @@ class CASino::LDAPAuthenticator
   end
 
   def extra_attributes(user_plain)
-    p user_plain
     if @options[:extra_attributes]
       result = {}
       @options[:extra_attributes].each do |index_result, index_ldap|
-        p "index_ldap"
-        p index_ldap
-        p "value"
-        p user_plain[index_ldap]
         value = user_plain[index_ldap]
         if value
           if index_ldap == "objectguid"
@@ -125,12 +120,13 @@ def generate_uuid_format(uuid)
 end
 
 def get_bad_pwd_count(user)
-  # p "user-->"
-  # p user
+  p "user-->"
+  p user
+  p user.class
   # p "llllll"
   # p user[0]
   # p user[:badpwdcount]
   # # p ";;;;"
   # p user[0][:badpwdcount]
-  # # p user.first[:badpwdcount]
+  # p user.first[:badpwdcount]
 end
