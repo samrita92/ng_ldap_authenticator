@@ -127,7 +127,7 @@ def get_bad_pwd_count(user)
     p "count"
     p count
     if count >= 1
-      "Account locked"
+      p "Account locked"
     end
   end
   # p user[:badpwdcount]
