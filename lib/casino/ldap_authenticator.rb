@@ -124,10 +124,15 @@ def get_bad_pwd_count(user)
   # p user[0]
   p user
   p user.class
-  
+  p user[:badpwdcount]
+
+  if user.is_a?(Array)
+    user = user.first
+    p "lkkkkhghgh"
+  end
   # p "llllll"
   # p user[0]
-  # p user[:badpwdcount]
+  # 
   # # p ";;;;"
   # p user[0][:badpwdcount]
   # p user.first[:badpwdcount]
