@@ -55,7 +55,9 @@ class CASino::LDAPAuthenticator
     if user.is_a?(Array)
       user = user.first
       p "user-->"
-    p user[:badpwdcount]
+      p user
+      p "0000"
+      p user["badpwdcount"]
     end
     user_data(user)
   end
