@@ -79,9 +79,14 @@ class CASino::LDAPAuthenticator
   end
 
   def extra_attributes(user_plain)
+    p user_plain
     if @options[:extra_attributes]
       result = {}
       @options[:extra_attributes].each do |index_result, index_ldap|
+        p "index_ldap"
+        p index_ldap
+        p "value"
+        p user_plain[index_ldap]
         value = user_plain[index_ldap]
         if value
           if index_ldap == "objectguid"
