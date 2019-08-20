@@ -124,7 +124,8 @@ def get_bad_pwd_count(user)
   # p user[0]
   p user
   p user.class
-  p user.class  == "Array"
+  p "kk"
+  p user.kind_of?(Array)
   if user.class == "Array"
     p "ll"
     p user[0]
