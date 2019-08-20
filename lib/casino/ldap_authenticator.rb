@@ -23,7 +23,7 @@ class CASino::LDAPAuthenticator
   def can_login?(username,password)
     ldap = connect_to_ldap
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
-    get_bad_pwd_count(user)
+    locked?(user)
   end
   private
   def connect_to_ldap
@@ -122,17 +122,7 @@ def generate_uuid_format(uuid)
   final_uuid.insert(8, '-').insert(13, '-').insert(18, '-').insert(23, '-')
 end
 
-def get_bad_pwd_count(user)
-  if user.kind_of?(Array)
-    p "ll"
-    count = user[0][:badpwdcount][0]
-    count = count.to_i
-    p "count"
-    p count
-    if count >= 1
-      [false, "Account locked"]
-    else
-      [true,"User Can Login"]
-    end
-  end
+def locked?(user)
+  return [false, "No User found"] unless user.kind_of?(Array)
+  user[0][:badpwdcount][0].to_i >= 3 ?  [false, "Account locked"] : [true, "User Can Login"]
 end
