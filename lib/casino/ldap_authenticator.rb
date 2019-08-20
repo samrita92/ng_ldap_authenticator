@@ -122,8 +122,11 @@ end
 def get_bad_pwd_count(user)
   if user.kind_of?(Array)
     p "ll"
-    p user[0][:badpwdcount]
-    
+    count = user[0][:badpwdcount][0]
+    count = count.to_i
+    if count >= 3
+      "Account locked"
+    end
   end
   # p user[:badpwdcount]
 
