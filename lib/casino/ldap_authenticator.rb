@@ -122,5 +122,7 @@ end
 def get_bad_pwd_count(user)
   p "user-->"
   p user
+  p user[0]
+  p user[0][:badpwdcount]
   # p user.first[:badpwdcount]
 end
