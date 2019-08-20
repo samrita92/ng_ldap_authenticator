@@ -23,8 +23,6 @@ class CASino::LDAPAuthenticator
   def can_login?(username)
     ldap = connect_to_ldap
     user = ldap.search(:base => @options[:base], :filter => user_filter(username))
-    p "kkkk"
-    p user
     locked?(user)
   end
   private
@@ -125,6 +123,6 @@ def generate_uuid_format(uuid)
 end
 
 def locked?(user)
-  return [false, "No User found"] unless user.kind_of?(Array)
+  return [false, "No User found"] if user.empty?
   user[0][:badpwdcount][0].to_i >= 1 ?  [false, "Account locked"] : [true, "User Can Login"]
 end
