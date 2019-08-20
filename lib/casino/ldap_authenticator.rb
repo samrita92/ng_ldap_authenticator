@@ -120,13 +120,7 @@ def generate_uuid_format(uuid)
 end
 
 def get_bad_pwd_count(user)
-  p "user-->"
-  # p user[0]
-  p user
-  p user.class
-  p "kk"
-  p user.kind_of?(Array)
-  if user.class == "Array"
+  if user.kind_of?(Array)
     p "ll"
     p user[0]
   end
