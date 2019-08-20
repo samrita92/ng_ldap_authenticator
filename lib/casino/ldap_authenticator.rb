@@ -50,6 +50,8 @@ class CASino::LDAPAuthenticator
   def load_user_data_with_connection(username, ldap)
     include_attributes = @options[:extra_attributes].values + [username_attribute]
     user = ldap.search(:base => @options[:base], :filter => user_filter(username), :attributes => include_attributes)
+    p "user-->"
+    p user
     return nil if user.nil?
     if user.is_a?(Array)
       user = user.first
