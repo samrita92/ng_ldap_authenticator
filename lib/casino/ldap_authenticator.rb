@@ -125,12 +125,12 @@ def generate_uuid_format(uuid)
 end
 
 def get_bad_pwd_count(user)
-  p "user-->"
-  p user
-  p "llllll"
-  p user[0]
-  p user[:badpwdcount]
-  # p ";;;;"
+  # p "user-->"
+  # p user
+  # p "llllll"
+  # p user[0]
+  # p user[:badpwdcount]
+  # # p ";;;;"
   # p user[0][:badpwdcount]
   # # p user.first[:badpwdcount]
 end
