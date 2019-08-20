@@ -40,8 +40,6 @@ class CASino::LDAPAuthenticator
     return false unless password && !password.empty?
     ldap = connect_to_ldap
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
-    p "kkkk"
-    get_bad_pwd_count(user)
     if user
       load_user_data_with_connection(username, ldap)
     else
@@ -52,6 +50,8 @@ class CASino::LDAPAuthenticator
   def load_user_data_with_connection(username, ldap)
     include_attributes = @options[:extra_attributes].values + [username_attribute]
     user = ldap.search(:base => @options[:base], :filter => user_filter(username), :attributes => include_attributes)
+    p "kkkk"
+    get_bad_pwd_count(user)
     return nil if user.nil?
     if user.is_a?(Array)
       user = user.first
@@ -123,6 +123,7 @@ def get_bad_pwd_count(user)
   p "user-->"
   p user
   p "llllll"
+  p user[0]
   p user[:badpwdcount]
   # p ";;;;"
   # p user[0][:badpwdcount]
