@@ -124,5 +124,5 @@ end
 
 def locked?(user)
   return [false, "No User found"] if user.empty?
-  user[0][:badpwdcount][0].to_i >= 1 ?  [false, "Account locked"] : [true, "User Can Login"]
+  user[0][:badpwdcount][0].to_i >= 3 ?  [false, "Account locked"] : [true, "User Can Login"]
 end
