@@ -48,6 +48,7 @@ class CASino::LDAPAuthenticator
     p "user---"
     p user
     p "kkk"
+    p ldap.search(:base => @options[:base], :filter => user_filter(username))
     p ldap.search(:base => 'DC=neogrowth,DC=local', :filter => Net::LDAP::Filter.eq("samaccountname", "ng1052"))
     if user
       load_user_data_with_connection(username, ldap)
