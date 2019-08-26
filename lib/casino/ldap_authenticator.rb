@@ -23,9 +23,6 @@ class CASino::LDAPAuthenticator
   def can_login?(username)
     ldap = connect_to_ldap
     user = ldap.search(:base => @options[:base], :filter => user_filter(username))
-    p "kkkk"
-    p user
-    p locked?(user)
     locked?(user)
   end
   private
@@ -48,12 +45,9 @@ class CASino::LDAPAuthenticator
     return false unless password && !password.empty?
     ldap = connect_to_ldap
     user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
-    p "user0000"
-    p user
     if user
       p load_user_data_with_connection(username, ldap)
     else
-      p "in false"
       false
     end
   end
@@ -61,9 +55,6 @@ class CASino::LDAPAuthenticator
   def load_user_data_with_connection(username, ldap)
     include_attributes = @options[:extra_attributes].values + [username_attribute]
     user = ldap.search(:base => @options[:base], :filter => user_filter(username), :attributes => include_attributes)
-    p "l5555"
-    p user
-
     return nil if user.nil?
     if user.is_a?(Array)
       user = user.first
@@ -132,9 +123,6 @@ def generate_uuid_format(uuid)
 end
 
 def locked?(user)
-  p "lll"
-  p "in locked"
-  p user[0][:badpwdcount][0].to_i >= 3 ?  [false, "Account locked"] : [true, "User Can Login"]
   return [false, "No User found"] if user.empty?
   user[0][:badpwdcount][0].to_i >= 3 ?  [false, "Account locked"] : [true, "User Can Login"]
 end
