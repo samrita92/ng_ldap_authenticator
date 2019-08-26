@@ -44,12 +44,10 @@ class CASino::LDAPAuthenticator
     # Don't allow "Unauthenticated bind" (http://www.openldap.org/doc/admin24/security.html#Authentication%20Methods)
     return false unless password && !password.empty?
     ldap = connect_to_ldap
-    # user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
-    user = ldap.search(:base => @options[:base], :filter => user_filter(username)) 
+    user = ldap.bind_as(:base => @options[:base], :size => 1, :password => password, :filter => user_filter(username))
     p "user---"
     p user
     p "kkk"
-    p ldap.search(:base => @options[:base], :filter => user_filter(username))
     if user
       load_user_data_with_connection(username, ldap)
     else
